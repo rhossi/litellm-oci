@@ -1,0 +1,94 @@
+# Common OCI authentication parameters (using YAML anchor)
+oci_auth: &oci_auth
+  drop_params: true  # Automatically drop unsupported parameters (like max_retries)
+  oci_user: <your_oci_user_ocid>
+  oci_fingerprint: <your_oci_fingerprint>
+  oci_tenancy: <your_oci_tenancy_ocid>
+  oci_region: us-chicago-1  # or your preferred region
+  oci_key_file: /path/to/your/oci_api_key.pem  # Use absolute path (tilde ~ not expanded)
+  oci_compartment_id: <your_oci_compartment_ocid>
+  oci_serving_mode: ON_DEMAND  # Optional: ON_DEMAND or DEDICATED
+
+model_list:
+  # xAI Grok Models
+  - model_name: oci/xai.grok-4
+    litellm_params:
+      <<: *oci_auth
+      model: oci/xai.grok-4
+  
+  - model_name: oci/xai.grok-4-fast-reasoning
+    litellm_params:
+      <<: *oci_auth
+      model: oci/xai.grok-4-fast-reasoning
+  
+  - model_name: oci/xai.grok-4-fast-non-reasoning
+    litellm_params:
+      <<: *oci_auth
+      model: oci/xai.grok-4-fast-non-reasoning
+  
+  - model_name: oci/xai.grok-3
+    litellm_params:
+      <<: *oci_auth
+      model: oci/xai.grok-3
+  
+  - model_name: oci/xai.grok-3-fast
+    litellm_params:
+      <<: *oci_auth
+      model: oci/xai.grok-3-fast
+  
+  - model_name: oci/xai.grok-3-mini
+    litellm_params:
+      <<: *oci_auth
+      model: oci/xai.grok-3-mini
+  
+  - model_name: oci/xai.grok-3-mini-fast
+    litellm_params:
+      <<: *oci_auth
+      model: oci/xai.grok-3-mini-fast
+  
+  - model_name: oci/xai.grok-code-fast-1
+    litellm_params:
+      <<: *oci_auth
+      model: oci/xai.grok-code-fast-1
+
+  # Meta Llama Models
+  - model_name: oci/meta.llama-4-maverick-17b-128e-instruct-fp8
+    litellm_params:
+      <<: *oci_auth
+      model: oci/meta.llama-4-maverick-17b-128e-instruct-fp8
+  
+  - model_name: oci/meta.llama-4-scout-17b-16e-instruct
+    litellm_params:
+      <<: *oci_auth
+      model: oci/meta.llama-4-scout-17b-16e-instruct
+  
+  - model_name: oci/meta.llama-3.3-70b-instruct
+    litellm_params:
+      <<: *oci_auth
+      model: oci/meta.llama-3.3-70b-instruct
+  
+  - model_name: oci/meta.llama-3.2-90b-vision-instruct
+    litellm_params:
+      <<: *oci_auth
+      model: oci/meta.llama-3.2-90b-vision-instruct
+  
+  - model_name: oci/meta.llama-3.1-405b-instruct
+    litellm_params:
+      <<: *oci_auth
+      model: oci/meta.llama-3.1-405b-instruct
+
+  # Cohere Models
+  - model_name: oci/cohere.command-latest
+    litellm_params:
+      <<: *oci_auth
+      model: oci/cohere.command-latest
+  
+  - model_name: oci/cohere.command-a-03-2025
+    litellm_params:
+      <<: *oci_auth
+      model: oci/cohere.command-a-03-2025
+  
+  - model_name: oci/cohere.command-plus-latest
+    litellm_params:
+      <<: *oci_auth
+      model: oci/cohere.command-plus-latest
