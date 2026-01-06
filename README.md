@@ -8,7 +8,7 @@ This proxy enables you to use the standard OpenAI SDK and API format to interact
 
 1. **Clone the repository:**
 ```bash
-git clone <repository-url>
+git clone https://github.com/rhossi/litellm-oci.git
 cd litellm-oci
 ```
 
