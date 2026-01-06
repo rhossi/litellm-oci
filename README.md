@@ -6,30 +6,40 @@ This proxy enables you to use the standard OpenAI SDK and API format to interact
 
 ## Setup
 
-1. **Install dependencies:**
+1. **Clone the repository:**
+```bash
+git clone <repository-url>
+cd litellm-oci
+```
+
+2. **Install dependencies:**
 ```bash
 uv sync
 ```
 
-2. **Create your configuration file:**
+3. **Create your configuration file:**
    - Copy the example configuration file:
    ```bash
    cp config.yaml.example config.yaml
    ```
 
-3. **Configure OCI credentials:**
+4. **Configure OCI credentials:**
    - Open `config.yaml` in your editor
    - Replace the placeholder values with your OCI credentials:
-     - `oci_user`: Your OCI user OCID
-     - `oci_fingerprint`: Your OCI API key fingerprint
-     - `oci_tenancy`: Your OCI tenancy OCID
-     - `oci_region`: Your OCI region (e.g., `us-chicago-1`)
-     - `oci_key_file`: Absolute path to your OCI API private key file (e.g., `/Users/yourname/.oci/oci_api_key.pem`)
-     - `oci_compartment_id`: Your OCI compartment OCID
+
+     **Values from OCI CLI config file (`~/.oci/config` section):**
+     - `oci_user`: Your OCI user OCID (from `user` field)
+     - `oci_fingerprint`: Your OCI API key fingerprint (from `fingerprint` field)
+     - `oci_tenancy`: Your OCI tenancy OCID (from `tenancy` field)
+     - `oci_region`: Your OCI region (from `region` field, e.g., `us-chicago-1`)
+     - `oci_key_file`: Absolute path to your OCI API private key file (from `key_file` field, e.g., `/Users/yourname/.oci/oci_api_key.pem`)
+
+     **Values from OCI Console:**
+     - `oci_compartment_id`: Your OCI compartment OCID (find in OCI Console under Identity & Security → Compartments, or use `oci iam compartment list` to find it)
    
    **Note:** Use absolute paths for `oci_key_file` (the `~` tilde is not expanded by LiteLLM).
 
-4. **Ensure your OCI API key is available:**
+5. **Ensure your OCI API key is available:**
    - Make sure your OCI API private key file exists at the path specified in `oci_key_file`
    - The key file should have appropriate permissions (typically `600` or `400`)
    
@@ -37,8 +47,12 @@ uv sync
 
 ## Running the LiteLLM Proxy
 
-Start the proxy server using the configuration file:
+1. **Activate the virtual environment:**
+```bash
+source .venv/bin/activate
+```
 
+2. **Start the proxy server using the configuration file:**
 ```bash
 litellm --config config.yaml
 ```
@@ -104,13 +118,15 @@ curl http://localhost:4000/v1/chat/completions \
 
 The `main.py` file demonstrates OpenAI API compatibility by using the OpenAI SDK to call the LiteLLM proxy:
 
-1. **First, start the proxy** (in one terminal):
+1. **First, activate the virtual environment and start the proxy** (in one terminal):
 ```bash
+source .venv/bin/activate
 python run_proxy.py --config config.yaml
 ```
 
-2. **Then run the example** (in another terminal):
+2. **Then activate the virtual environment and run the example** (in another terminal):
 ```bash
+source .venv/bin/activate
 python main.py
 ```
 
